@@ -29,6 +29,10 @@ const { title = "Pink Pigeon", description = "A travel blog" } = Astro.props;
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
   if (window.netlifyIdentity) {
+    // Point to Netlify site since we're hosted on Cloudflare
+    window.netlifyIdentity.init({
+      APIUrl: "https://pinkpigeonpink.netlify.app/.netlify/identity"
+    });
     window.netlifyIdentity.on("init", user => {
       if (!user) {
         window.netlifyIdentity.on("login", () => {
