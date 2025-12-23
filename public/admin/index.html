@@ -4,48 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pink Pigeon - Admin</title>
-  <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    CMS.init({
-      config: {
-        backend: {
-          name: 'git-gateway',
-          branch: 'main'
-        },
-        media_folder: 'src/images/blog',
-        public_folder: '/src/images/blog',
-        collections: [
-          {
-            name: 'posts',
-            label: 'Blog Posts',
-            folder: 'src/content/posts',
-            create: true,
-            slug: '{{slug}}',
-            fields: [
-              { label: 'Publish Date', name: 'pubDate', widget: 'datetime', format: 'YYYY-MM-DD' },
-              { label: 'Author', name: 'author', widget: 'string', default: 'Pink Pigeon' },
-              { label: 'Title', name: 'title', widget: 'string' },
-              { label: 'Description', name: 'description', widget: 'string' },
-              { 
-                label: 'Image', 
-                name: 'image', 
-                widget: 'object',
-                fields: [
-                  { label: 'URL', name: 'url', widget: 'image' },
-                  { label: 'Alt Text', name: 'alt', widget: 'string' }
-                ]
-              },
-              { label: 'Tags', name: 'tags', widget: 'list' },
-              { label: 'Body', name: 'body', widget: 'markdown' }
-            ]
-          }
-        ]
-      }
-    });
-  </script>
 </body>
 </html>
