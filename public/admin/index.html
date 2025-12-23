@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pink Pigeon - Admin</title>
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
@@ -11,10 +13,8 @@
     CMS.init({
       config: {
         backend: {
-          name: 'github',
-          repo: 'Kelseyniederer/pinkpigeon',
-          branch: 'main',
-          base_url: 'https://decapcms-oauth-production.up.railway.app'
+          name: 'git-gateway',
+          branch: 'main'
         },
         media_folder: 'src/images/blog',
         public_folder: '/src/images/blog',
