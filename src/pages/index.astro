@@ -15,15 +15,15 @@ const sortedPosts = allPosts.sort(
   <section>
     <div class="py-24">
       <h1
-        class="text-4xl text-balance font-medium font-display text-base-900 max-w-xl"
+        class="text-4xl text-balance font-medium font-display text-base-900 dark:text-base-100 max-w-xl"
       >
-        A simple blog built with Astro and Tailwind CSS
+       A Travel Blog for C Bird 🌸 🐦
       </h1>
       <div class="flex flex-wrap gap-3 mt-8">
         {
           tags.map((tag) => (
             <a
-              class=" hover:text-blue-500 text-xs font-medium text-base-600"
+              class="hover:text-pink-500 text-xs font-medium text-base-600 dark:text-base-400"
               href={`/tags/${tag}`}
             >
               {tag}

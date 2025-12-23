@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 @theme {
   --font-sans: Inter, sans-serif;
   --font-display: InterDisplay, monospace;
@@ -17,6 +18,11 @@
   --color-base-900: oklch(23.48% 0.004 264.49);
   --color-base-950: oklch(16.89% 0.002 286.18);
 }
+/* Hide elements until Alpine loads */
+[x-cloak] {
+  display: none !important;
+}
+
 /* CSS */
 :root {
   font-family: Inter, sans-serif;
