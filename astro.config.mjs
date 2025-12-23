@@ -20,7 +20,6 @@ export default defineConfig({
     skipInline: false,
     drafts: true
   },
-  site: 'https://kelseyniederer.github.io',
-  base: '/pinkpigeon',
+  site: 'https://pinkpigeon.pink',
   integrations: [sitemap(), mdx()]
 });
