@@ -14,8 +14,18 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Publish Date", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Author", name: "author", widget: "string", default: "Pink Pigeon" }
+      - {
+          label: "Publish Date",
+          name: "pubDate",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+        }
+      - {
+          label: "Author",
+          name: "author",
+          widget: "string",
+          default: "Pink Pigeon",
+        }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "string" }
       - label: "Image"
@@ -26,4 +36,3 @@ collections:
           - { label: "Alt Text", name: "alt", widget: "string" }
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Body", name: "body", widget: "markdown" }
-

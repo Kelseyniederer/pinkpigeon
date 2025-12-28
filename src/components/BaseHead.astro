@@ -28,23 +28,29 @@ const { title = "Pink Pigeon", description = "A travel blog" } = Astro.props;
 <!-- Netlify Identity Widget (for CMS login) -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
-  // Initialize Netlify Identity with Netlify API URL (since hosted on Cloudflare)
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.init({
-      APIUrl: "https://pinkpigeonpink.netlify.app/.netlify/identity"
-    });
-    
-    // Handle confirmation/recovery tokens in URL
-    if (window.location.hash) {
-      window.netlifyIdentity.open();
-    }
-    
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.netlifyIdentity) {
+      // Check for tokens in URL hash
+      const hash = window.location.hash;
+      const hasToken = hash.includes('invite_token=') || 
+                       hash.includes('confirmation_token=') || 
+                       hash.includes('recovery_token=');
+      
+      if (hasToken) {
+        // Determine which action to open
+        if (hash.includes('recovery_token=')) {
+          window.netlifyIdentity.open('recover');
+        } else if (hash.includes('invite_token=')) {
+          window.netlifyIdentity.open('signup');
+        } else {
+          window.netlifyIdentity.open();
+        }
       }
-    });
-  }
+      
+      // Redirect to admin after login
+      window.netlifyIdentity.on("login", () => {
+        document.location.href = "/admin/";
+      });
+    }
+  });
 </script>
