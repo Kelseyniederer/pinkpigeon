@@ -34,7 +34,7 @@ const settingsCollection = defineCollection({
   schema: () =>
     z.object({
       preset: z
-        .enum(["blush", "slate", "sand", "sage"])
+        .enum(["blush", "slate", "sand", "sage", "rose"])
         .optional()
         .default("blush"),
       accent: z.string().optional().default(""),

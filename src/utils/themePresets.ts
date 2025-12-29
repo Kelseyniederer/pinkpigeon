@@ -1,4 +1,4 @@
-export type ThemePresetKey = "blush" | "slate" | "sand" | "sage";
+export type ThemePresetKey = "blush" | "slate" | "sand" | "sage" | "rose";
 
 export type ThemePreset = {
   base: Record<"50" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "950", string>;
@@ -81,6 +81,27 @@ export const THEME_PRESETS: Record<ThemePresetKey, ThemePreset> = {
       "950": "oklch(15% 0.01 150)",
     },
     accent: "#10b981",
+    fontSans: "Inter, sans-serif",
+    fontDisplay: "InterDisplay, sans-serif",
+  },
+
+  // Screenshot-inspired soft pink UI
+  rose: {
+    base: {
+      "50": "#fff1f4",
+      "100": "#ffe4ea",
+      "200": "#fbc9d6",
+      "300": "#f6a9bf",
+      "400": "#e97fa1",
+      "500": "#d85b84",
+      "600": "#b93d6a",
+      "700": "#8f2d52",
+      "800": "#5f1e36",
+      "900": "#2d0f1d",
+      "950": "#160710",
+    },
+    // Slightly deeper pink so white text on CTA still reads
+    accent: "#d85b84",
     fontSans: "Inter, sans-serif",
     fontDisplay: "InterDisplay, sans-serif",
   },

@@ -81,6 +81,7 @@ collections:
             widget: "select"
             options:
               - { label: "Blush (default)", value: "blush" }
+              - { label: "Rose (soft pink)", value: "rose" }
               - { label: "Slate (cool)", value: "slate" }
               - { label: "Sand (warm)", value: "sand" }
               - { label: "Sage (green)", value: "sage" }
