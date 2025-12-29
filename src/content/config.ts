@@ -14,6 +14,15 @@ const postsCollection = defineCollection({
       tags: z.array(z.string()).optional().default([]),
     }),
 });
+
+const pagesCollection = defineCollection({
+  schema: () =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional().default(""),
+    }),
+});
 export const collections = {
   posts: postsCollection,
+  pages: pagesCollection,
 };

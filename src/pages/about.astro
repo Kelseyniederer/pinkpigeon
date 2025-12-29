@@ -1,0 +1,32 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
+
+const about = await getEntry("pages", "about");
+if (!about) {
+  throw new Error("Missing content: src/content/pages/about.md");
+}
+
+const { Content } = await about.render();
+---
+
+<BaseLayout>
+  <section>
+    <div class="py-24">
+      <h1 class="text-4xl text-balance font-medium font-display">
+        {about.data.title}
+      </h1>
+      {about.data.description ? (
+        <p class="mt-4 text-sm text-base-500 dark:text-base-400 text-balance">
+          <em>{about.data.description}</em>
+        </p>
+      ) : null}
+
+      <div class="prose prose-sm dark:prose-invert max-w-md mt-12">
+        <Content />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+
