@@ -49,12 +49,53 @@ collections:
         file: "src/content/pages/about.md"
         fields:
           - { label: "Title", name: "title", widget: "string" }
-          - { label: "Description", name: "description", widget: "string", required: false }
+          - {
+              label: "Description",
+              name: "description",
+              widget: "string",
+              required: false,
+            }
           - label: "Image"
             name: "image"
             widget: "object"
             required: false
             fields:
               - { label: "Image", name: "url", widget: "image" }
-              - { label: "Alt Text", name: "alt", widget: "string", required: false }
+              - {
+                  label: "Alt Text",
+                  name: "alt",
+                  widget: "string",
+                  required: false,
+                }
           - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "Settings"
+    files:
+      - name: "theme"
+        label: "Theme Settings"
+        file: "src/content/settings/theme.json"
+        fields:
+          - label: "Theme Preset"
+            name: "preset"
+            widget: "select"
+            options:
+              - { label: "Blush (default)", value: "blush" }
+              - { label: "Slate (cool)", value: "slate" }
+              - { label: "Sand (warm)", value: "sand" }
+              - { label: "Sage (green)", value: "sage" }
+            default: "blush"
+          - label: "Accent Color (optional override)"
+            name: "accent"
+            widget: "color"
+            required: false
+          - label: "Body Font (optional override)"
+            name: "fontSans"
+            widget: "string"
+            required: false
+            hint: "Example: Inter, sans-serif OR Georgia, serif"
+          - label: "Display Font (optional override)"
+            name: "fontDisplay"
+            widget: "string"
+            required: false
+            hint: "Used for headings (font-display). Example: InterDisplay, sans-serif"
