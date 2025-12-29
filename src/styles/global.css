@@ -25,12 +25,12 @@
 
 /* CSS */
 :root {
-  font-family: Inter, sans-serif;
+  font-family: var(--font-sans);
 }
 @supports (font-variation-settings: normal) {
   /* Use variable font if supported */
   :root {
-    font-family: InterVariable, sans-serif;
+    font-family: var(--font-sans);
   }
 }
 :root {
