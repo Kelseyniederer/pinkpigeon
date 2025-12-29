@@ -50,4 +50,11 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "string", required: false }
+          - label: "Image"
+            name: "image"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Image", name: "url", widget: "image" }
+              - { label: "Alt Text", name: "alt", widget: "string", required: false }
           - { label: "Body", name: "body", widget: "markdown" }

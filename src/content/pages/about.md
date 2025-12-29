@@ -1,6 +1,9 @@
 ---
 title: About
 description: A little bit about Pink Pigeon.
+image:
+  url: /src/images/blog/img_9969.jpeg
+  alt: Pink Pigeon
 ---
 
 Write your About page here.

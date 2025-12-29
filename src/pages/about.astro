@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 
 const about = await getEntry("pages", "about");
@@ -20,6 +21,16 @@ const { Content } = await about.render();
         <p class="mt-4 text-sm text-base-500 dark:text-base-400 text-balance">
           <em>{about.data.description}</em>
         </p>
+      ) : null}
+
+      {about.data.image ? (
+        <Image
+          width={1280}
+          height={720}
+          src={about.data.image.url}
+          alt={about.data.image.alt || about.data.title}
+          class="object-cover object-center w-full aspect-12/7 rounded-xl mt-6"
+        />
       ) : null}
 
       <div class="prose prose-sm dark:prose-invert max-w-md mt-12">

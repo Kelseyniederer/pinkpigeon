@@ -16,10 +16,16 @@ const postsCollection = defineCollection({
 });
 
 const pagesCollection = defineCollection({
-  schema: () =>
+  schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string().optional().default(""),
+      image: z
+        .object({
+          url: image(),
+          alt: z.string().optional().default(""),
+        })
+        .optional(),
     }),
 });
 export const collections = {
