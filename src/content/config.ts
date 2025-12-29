@@ -10,7 +10,8 @@ const postsCollection = defineCollection({
         url: image(),
         alt: z.string(),
       }),
-      tags: z.array(z.string()),
+      // Allow posts without tags (CMS users may leave it blank).
+      tags: z.array(z.string()).optional().default([]),
     }),
 });
 export const collections = {
