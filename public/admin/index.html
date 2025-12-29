@@ -6,11 +6,21 @@
   <title>Pink Pigeon - Admin</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-    // Point identity widget to Netlify site (since we're hosted on Cloudflare)
+    // Netlify-hosted now: use same-origin Identity endpoint.
+    // Also: if a user clicked an email link with a token, auto-open the right UI.
     if (window.netlifyIdentity) {
       window.netlifyIdentity.init({
-        APIUrl: "https://pinkpigeonpink.netlify.app/.netlify/identity"
+        APIUrl: window.location.origin + "/.netlify/identity"
       });
+
+      const hash = window.location.hash || "";
+      if (hash.includes("recovery_token=")) {
+        window.netlifyIdentity.on("init", () => window.netlifyIdentity.open("recover"));
+      } else if (hash.includes("invite_token=")) {
+        window.netlifyIdentity.on("init", () => window.netlifyIdentity.open("signup"));
+      } else if (hash.includes("confirmation_token=")) {
+        window.netlifyIdentity.on("init", () => window.netlifyIdentity.open());
+      }
     }
   </script>
 </head>

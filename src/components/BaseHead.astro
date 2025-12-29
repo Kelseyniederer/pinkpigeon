@@ -25,27 +25,19 @@ const { title = "Pink Pigeon", description = "A travel blog" } = Astro.props;
 <!-- Alpine.js -->
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Netlify Identity Widget (for CMS login) -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<!-- Identity email links land on /#token=... by default.
+     Redirect those straight to /admin/#token=... so the CMS can handle them. -->
 <script>
-  // Wait for widget to be ready
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on('init', function(user) {
-      // Check for tokens in URL hash
-      const hash = window.location.hash;
-      
-      if (hash.includes('recovery_token=')) {
-        window.netlifyIdentity.open('recover');
-      } else if (hash.includes('invite_token=')) {
-        window.netlifyIdentity.open('signup');  
-      } else if (hash.includes('confirmation_token=')) {
-        window.netlifyIdentity.open();
-      }
-    });
-    
-    // Redirect to admin after login
-    window.netlifyIdentity.on('login', function() {
-      document.location.href = '/admin/';
-    });
-  }
+  (() => {
+    const hash = window.location.hash || "";
+    const isIdentityToken =
+      hash.includes("recovery_token=") ||
+      hash.includes("invite_token=") ||
+      hash.includes("confirmation_token=");
+
+    // If someone clicks an Identity email link, send them to /admin with the same hash.
+    if (isIdentityToken && !window.location.pathname.startsWith("/admin")) {
+      window.location.replace(`/admin/${hash}`);
+    }
+  })();
 </script>

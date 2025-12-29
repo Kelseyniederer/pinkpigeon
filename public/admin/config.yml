@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
-site_url: https://pinkpigeonpink.netlify.app
+site_url: https://pinkpigeon.pink
 
 media_folder: "src/images/blog"
 public_folder: "/src/images/blog"
