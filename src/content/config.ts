@@ -28,22 +28,7 @@ const pagesCollection = defineCollection({
         .optional(),
     }),
 });
-
-const settingsCollection = defineCollection({
-  type: "data",
-  schema: () =>
-    z.object({
-      preset: z
-        .enum(["blush", "slate", "sand", "sage", "rose"])
-        .optional()
-        .default("blush"),
-      accent: z.string().optional().default(""),
-      fontSans: z.string().optional().default(""),
-      fontDisplay: z.string().optional().default(""),
-    }),
-});
 export const collections = {
   posts: postsCollection,
   pages: pagesCollection,
-  settings: settingsCollection,
 };

@@ -1,32 +1,63 @@
 ---
 import { Image } from "astro:assets";
-const { title, url, description, pubDate, author, image, tags } = Astro.props;
+const { title, url, description, pubDate, author, image, tags, featured = false } = Astro.props;
 ---
 
-<article class="flex flex-col flex-1 h-full">
+<article
+  class:list={[
+    "flex flex-col flex-1 h-full",
+    featured && "sm:col-span-2 lg:col-span-2",
+  ]}
+>
   <a href={url} title={title} class="group block">
-    <div class="block w-full lg:col-span-2">
+    <div
+      class:list={[
+        "relative block w-full overflow-hidden rounded-2xl bg-base-100 dark:bg-base-900",
+        // Keep cards aligned in a row (especially the featured + next card on desktop)
+        // by using a consistent media height instead of varying aspect ratios.
+        "h-56 sm:h-64 lg:h-72",
+      ]}
+    >
       <Image
         width={1200}
         height={630}
         src={image}
         alt={title}
-        class="object-cover w-full h-full bg-center aspect-12/8 rounded-xl"
+        class:list={[
+          "object-cover w-full h-full bg-center transition duration-500 group-hover:scale-[1.02] rounded-2xl",
+        ]}
       />
     </div>
   </a>
 
-  <div class="mt-1">
-    <div class="flex items-center space-x-1 text-xs text-base-500 dark:text-base-400">
+  <div class:list={["mt-3", featured && "mt-4"]}>
+    <div class="flex items-center gap-2 text-xs text-base-500 dark:text-base-400">
+      {featured && (
+        <span class="inline-flex items-center rounded-full bg-base-100 dark:bg-base-800 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-base-900 dark:text-base-100">
+          FEATURE
+        </span>
+      )}
       <span class="font-medium">{author}</span>
       <span aria-hidden="true">&middot;</span>
       <time datetime={pubDate}>{pubDate}</time>
     </div>
 
-    <h3 class="mt-4 text-base text-base-900 dark:text-base-100 text-balance">
+    <h3
+      class:list={[
+        "mt-3 text-base-900 dark:text-base-100 text-balance",
+        featured ? "text-2xl sm:text-3xl font-display font-semibold tracking-tight" : "text-base font-medium",
+      ]}
+    >
       <a href={url} class="hover:underline">{title}</a>
     </h3>
 
-    <p class="mt-1 text-sm text-base-500 dark:text-base-400 line-clamp-2">{description}</p>
+    <p
+      class:list={[
+        "mt-1 text-base-500 dark:text-base-400 line-clamp-2",
+        featured ? "text-base sm:text-lg" : "text-sm",
+      ]}
+    >
+      {description}
+    </p>
   </div>
 </article>

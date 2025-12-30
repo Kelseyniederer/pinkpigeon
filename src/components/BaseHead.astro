@@ -1,7 +1,5 @@
 ---
 import "../styles/global.css";
-import { getEntry } from "astro:content";
-import { THEME_PRESETS } from "@/utils/themePresets";
 
 interface Props {
   title?: string;
@@ -9,13 +7,6 @@ interface Props {
 }
 
 const { title = "Pink Pigeon", description = "A travel blog" } = Astro.props;
-
-const themeEntry = await getEntry("settings", "theme");
-const themeData = themeEntry?.data ?? { preset: "blush", accent: "", fontSans: "", fontDisplay: "" };
-const preset = THEME_PRESETS[themeData.preset ?? "blush"] ?? THEME_PRESETS.blush;
-const accent = (themeData.accent && themeData.accent.trim().length > 0) ? themeData.accent.trim() : preset.accent;
-const fontSans = (themeData.fontSans && themeData.fontSans.trim().length > 0) ? themeData.fontSans.trim() : (preset.fontSans ?? "");
-const fontDisplay = (themeData.fontDisplay && themeData.fontDisplay.trim().length > 0) ? themeData.fontDisplay.trim() : (preset.fontDisplay ?? "");
 ---
 
 <meta charset="UTF-8" />
@@ -23,27 +14,6 @@ const fontDisplay = (themeData.fontDisplay && themeData.fontDisplay.trim().lengt
 
 <title>{title}</title>
 <meta name="description" content={description} />
-
-<style is:inline>
-  {`
-  :root {
-    --color-accent: ${accent} !important;
-    --color-base-50: ${preset.base["50"]} !important;
-    --color-base-100: ${preset.base["100"]} !important;
-    --color-base-200: ${preset.base["200"]} !important;
-    --color-base-300: ${preset.base["300"]} !important;
-    --color-base-400: ${preset.base["400"]} !important;
-    --color-base-500: ${preset.base["500"]} !important;
-    --color-base-600: ${preset.base["600"]} !important;
-    --color-base-700: ${preset.base["700"]} !important;
-    --color-base-800: ${preset.base["800"]} !important;
-    --color-base-900: ${preset.base["900"]} !important;
-    --color-base-950: ${preset.base["950"]} !important;
-    ${fontSans ? `--font-sans: ${fontSans} !important; font-family: ${fontSans} !important;` : ""}
-    ${fontDisplay ? `--font-display: ${fontDisplay} !important;` : ""}
-  }
-  `}
-</style>
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="/favicon.png" />

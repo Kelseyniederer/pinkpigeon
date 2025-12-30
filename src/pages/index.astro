@@ -15,11 +15,11 @@ const sortedPosts = allPosts.sort(
 
 <BaseLayout>
   <section>
-    <div class="py-24">
+    <div class="pt-10 pb-24">
       <h1
         class="text-4xl text-balance font-medium font-display text-base-900 dark:text-base-100 max-w-xl"
       >
-       A Travel Blog for C Bird 🌸 🐦
+       Blog
       </h1>
       <div class="flex flex-wrap gap-3 mt-8">
         {
@@ -33,9 +33,9 @@ const sortedPosts = allPosts.sort(
           ))
         }
       </div>
-      <div class="grid grid-cols-1 mt-4 gap-8 gap-y-24 sm:grid-cols-2">
+      <div class="grid grid-cols-1 mt-8 gap-8 gap-y-24 sm:grid-cols-2 lg:grid-cols-3">
         {
-          sortedPosts.map((post) => (
+          sortedPosts.map((post, idx) => (
             <BlogEntries
               url={"/posts/" + post.slug}
               alt={post.data.title}
@@ -45,6 +45,7 @@ const sortedPosts = allPosts.sort(
               image={post.data.image.url}
               description={post.data.description}
               pubDate={post.data.pubDate.toString().slice(0, 10)}
+              featured={idx === 0}
             />
           ))
         }
