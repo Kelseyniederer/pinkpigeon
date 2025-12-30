@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 const { title, url, description, pubDate, author, image, tags, featured = false } = Astro.props;
+const safeTags = (Array.isArray(tags) ? tags : []).filter(Boolean);
 ---
 
 <article
@@ -8,6 +9,9 @@ const { title, url, description, pubDate, author, image, tags, featured = false 
     "flex flex-col flex-1 h-full",
     featured && "sm:col-span-2 lg:col-span-2",
   ]}
+  x-data={`{ tags: ${JSON.stringify(safeTags)} }`}
+  x-show="!selectedTag || tags.includes(selectedTag)"
+  x-transition.opacity.duration.150ms
 >
   <a href={url} title={title} class="group block">
     <div
