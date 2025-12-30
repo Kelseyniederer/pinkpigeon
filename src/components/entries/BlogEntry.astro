@@ -15,7 +15,7 @@ const { title, url, description, pubDate, author, image, tags, featured = false 
         "relative block w-full overflow-hidden rounded-2xl bg-base-100 dark:bg-base-900",
         // Keep cards aligned in a row (especially the featured + next card on desktop)
         // by using a consistent media height instead of varying aspect ratios.
-        "h-56 sm:h-64 lg:h-72",
+        "h-60 sm:h-72 lg:h-80",
       ]}
     >
       <Image
@@ -24,7 +24,8 @@ const { title, url, description, pubDate, author, image, tags, featured = false 
         src={image}
         alt={title}
         class:list={[
-          "object-cover w-full h-full bg-center transition duration-500 group-hover:scale-[1.02] rounded-2xl",
+          "object-cover w-full h-full bg-center transition duration-500 rounded-2xl",
+          "group-hover:scale-[1.03]",
         ]}
       />
     </div>
@@ -45,7 +46,7 @@ const { title, url, description, pubDate, author, image, tags, featured = false 
     <h3
       class:list={[
         "mt-3 text-base-900 dark:text-base-100 text-balance",
-        featured ? "text-2xl sm:text-3xl font-display font-semibold tracking-tight" : "text-base font-medium",
+        featured ? "text-2xl sm:text-3xl font-display font-medium tracking-tight" : "text-base font-medium",
       ]}
     >
       <a href={url} class="hover:underline">{title}</a>

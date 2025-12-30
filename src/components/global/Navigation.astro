@@ -2,6 +2,7 @@
 const pathname = Astro.url.pathname;
 const isBlog = pathname === "/" || pathname.startsWith("/posts") || pathname.startsWith("/tags");
 const isAbout = pathname.startsWith("/about");
+const activeKey = isAbout ? "about" : "blog";
 ---
 
 <header class="pt-6 pb-8">
@@ -62,7 +63,7 @@ const isAbout = pathname.startsWith("/about");
   <div class="mt-10 text-center">
     <a
       href="/"
-      class="inline-block font-display font-semibold tracking-tight text-3xl sm:text-4xl md:text-5xl text-base-900 dark:text-base-100 hover:text-[var(--color-accent)] transition"
+      class="inline-block font-display font-medium tracking-tight text-3xl sm:text-4xl md:text-5xl text-base-900 dark:text-base-100 hover:text-[var(--color-accent)] transition"
       aria-label="Pink Pigeon home"
     >
       Pink Pigeon 🌸 🐦
@@ -70,26 +71,62 @@ const isAbout = pathname.startsWith("/about");
   </div>
 
   <!-- Nav links -->
-  <nav class="mt-5 flex items-center justify-center gap-6 text-sm">
+  <nav
+    class="mt-5 flex items-center justify-center"
+    x-data={`{
+      active: "${activeKey}",
+      left: 0,
+      width: 0,
+      setIndicator(el) {
+        if (!el) return;
+        // Measure relative to the same element the indicator is positioned within
+        const navRect = this.$refs.wrap.getBoundingClientRect();
+        const rect = el.getBoundingClientRect();
+        this.left = rect.left - navRect.left;
+        this.width = rect.width;
+      },
+      reset() {
+        this.$nextTick(() => this.setIndicator(this.$refs[this.active]));
+      },
+      init() {
+        this.reset();
+        window.addEventListener('resize', () => this.reset(), { passive: true });
+      }
+    }`}
+    x-init="init()"
+    @mouseleave="reset()"
+  >
+    <div x-ref="wrap" class="relative inline-flex items-center gap-6 text-sm">
+      <!-- sliding indicator -->
+      <span
+        aria-hidden="true"
+        class="absolute left-0 -bottom-1 h-[2px] rounded-full bg-[var(--color-accent)] transition-[left,width] duration-300 ease-out"
+        :style="`left:${left}px;width:${width}px`"
+      ></span>
     <a
+      x-ref="blog"
+      @mouseenter="setIndicator($el)"
+      @focus="setIndicator($el)"
       class:list={[
         "relative text-base-600 dark:text-base-400 hover:text-[var(--color-accent)] transition",
-        "after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:bg-[var(--color-accent)] after:origin-left after:transition-transform after:duration-300",
-        isBlog ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100",
+        isBlog && "text-base-900 dark:text-base-100",
       ]}
       href="/"
     >
       Blog
     </a>
     <a
+      x-ref="about"
+      @mouseenter="setIndicator($el)"
+      @focus="setIndicator($el)"
       class:list={[
         "relative text-base-600 dark:text-base-400 hover:text-[var(--color-accent)] transition",
-        "after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:bg-[var(--color-accent)] after:origin-left after:transition-transform after:duration-300",
-        isAbout ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100",
+        isAbout && "text-base-900 dark:text-base-100",
       ]}
       href="/about"
     >
       About
     </a>
+    </div>
   </nav>
 </header>

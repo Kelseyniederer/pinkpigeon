@@ -3,8 +3,8 @@
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
-  --font-sans: Inter, sans-serif;
-  --font-display: InterDisplay, sans-serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   --font-mono: JetBrains Mono, monospace;
   /* Palette-driven Pink Pigeon theme (light + dark both stay pink) */
   --color-accent: #c62d70; /* Hibiscus */

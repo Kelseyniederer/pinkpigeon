@@ -1,5 +1,5 @@
 ---
-title: About
+title: Hey, I'm Clarissa :)
 description: A little bit about Pink Pigeon.
 image:
   url: /src/images/blog/img_9969.jpeg
