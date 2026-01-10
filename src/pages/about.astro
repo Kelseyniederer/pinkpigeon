@@ -12,27 +12,27 @@ const { Content } = await about.render();
 ---
 
 <BaseLayout>
-  <section>
+  <section class="overflow-x-hidden">
     <div class="pt-4 pb-24">
       <div
         class:list={[
-          "grid gap-10 lg:gap-14 items-start",
+          "grid gap-10 lg:gap-14 items-start justify-items-center lg:justify-items-start",
           about.data.image ? "lg:grid-cols-2" : "lg:grid-cols-1",
         ]}
       >
         {about.data.image ? (
-          <div class="group lg:sticky lg:top-10">
+          <div class="group lg:sticky lg:top-10 w-[16rem] sm:w-[22rem] lg:w-full">
             <Image
               width={1400}
               height={1750}
               src={about.data.image.url}
               alt={about.data.image.alt || about.data.title}
-              class="object-cover object-center w-full aspect-[3/4] rounded-3xl ring-1 ring-base-200/70 dark:ring-base-800/60 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] transition duration-500 group-hover:scale-[1.02]"
+              class="object-cover object-center w-full aspect-square sm:aspect-[3/4] rounded-3xl ring-1 ring-base-200/70 dark:ring-base-800/60 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] transition duration-500 group-hover:scale-[1.02]"
             />
           </div>
         ) : null}
 
-        <div class="max-w-xl">
+        <div class="w-full px-4 sm:px-6 lg:px-0 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
           <p class="text-xs font-medium tracking-[0.18em] text-base-600 dark:text-base-400">
             ABOUT
           </p>
@@ -47,7 +47,7 @@ const { Content } = await about.render();
             </p>
           ) : null}
 
-          <div class="prose prose-base dark:prose-invert max-w-none mt-10">
+          <div class="prose prose-base dark:prose-invert max-w-none mt-10 text-left break-words [&_a]:break-all">
             <Content />
           </div>
         </div>
