@@ -16,14 +16,49 @@ import Footer from "@/components/global/Footer.astro";
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
-      // Always scroll to top on page load (multiple attempts to catch all cases)
-      window.scrollTo(0, 0);
-      document.addEventListener('DOMContentLoaded', () => {
+      // Aggressive scroll-to-top to catch all cases (especially mobile)
+      function scrollToTop() {
         window.scrollTo(0, 0);
-      });
+        if (document.documentElement) document.documentElement.scrollTop = 0;
+        if (document.body) document.body.scrollTop = 0;
+      }
+      // Immediate scroll
+      scrollToTop();
+      // After DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scrollToTop);
+      } else {
+        scrollToTop();
+      }
+      // After everything loads
       window.addEventListener('load', () => {
-        window.scrollTo(0, 0);
+        scrollToTop();
+        // One more time after a tiny delay to catch late-loading images
+        setTimeout(scrollToTop, 0);
+        requestAnimationFrame(() => {
+          scrollToTop();
+          setTimeout(scrollToTop, 100);
+        });
       });
+      // Also scroll after images load
+      if (document.images.length > 0) {
+        let imagesLoaded = 0;
+        Array.from(document.images).forEach(img => {
+          if (img.complete) {
+            imagesLoaded++;
+          } else {
+            img.addEventListener('load', () => {
+              imagesLoaded++;
+              if (imagesLoaded === document.images.length) {
+                scrollToTop();
+              }
+            });
+          }
+        });
+        if (imagesLoaded === document.images.length) {
+          scrollToTop();
+        }
+      }
     </script>
   </head>
   <body class="flex flex-col w-full max-w-[clamp(44rem,calc(100vw/1.618),72rem)] min-h-screen px-6 sm:px-8 lg:px-10 mx-auto bg-base-50 dark:bg-base-950 text-base-900 dark:text-base-100 transition-colors duration-300">
