@@ -66,28 +66,13 @@ const activeKey = isAbout ? "about" : "blog";
       class="inline-flex items-center justify-center transition hover:opacity-90"
       aria-label="Pink Pigeon home"
     >
-      <span class="relative w-48 sm:w-64 md:w-80 lg:w-96 aspect-[1.62]">
-        <!-- Light mode logo -->
-        <img
-          src="/logo.png"
-          alt="Pink Pigeon"
-          width="4382"
-          height="2705"
-          class="absolute inset-0 w-full h-full object-contain dark:hidden"
-          loading="eager"
-          decoding="async"
-        />
-        <!-- Dark mode logo -->
-        <img
-          src="/logo-dark.png"
-          alt="Pink Pigeon"
-          width="4382"
-          height="2705"
-          class="absolute inset-0 w-full h-full object-contain hidden dark:block"
-          loading="eager"
-          decoding="async"
-        />
-      </span>
+      <img
+        src="/logo.png"
+        alt="Pink Pigeon"
+        class="w-48 sm:w-64 md:w-80 lg:w-96 h-auto"
+        loading="eager"
+        decoding="async"
+      />
     </a>
   </div>
 
