@@ -12,8 +12,18 @@ import Footer from "@/components/global/Footer.astro";
       if (localStorage.getItem('dark') === 'true') {
         document.documentElement.classList.add('dark');
       }
-      // Always scroll to top on page load
+      // Disable browser scroll restoration
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      // Always scroll to top on page load (multiple attempts to catch all cases)
       window.scrollTo(0, 0);
+      document.addEventListener('DOMContentLoaded', () => {
+        window.scrollTo(0, 0);
+      });
+      window.addEventListener('load', () => {
+        window.scrollTo(0, 0);
+      });
     </script>
   </head>
   <body class="flex flex-col w-full max-w-[clamp(44rem,calc(100vw/1.618),72rem)] min-h-screen px-6 sm:px-8 lg:px-10 mx-auto bg-base-50 dark:bg-base-950 text-base-900 dark:text-base-100 transition-colors duration-300">
