@@ -98,7 +98,7 @@ const { frontmatter } = Astro.props;
   document.querySelectorAll<HTMLButtonElement>("[data-lightbox]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const img = btn.querySelector("img");
-      open(btn.dataset.lightbox!, img?.alt || "");
+      open(img?.src || "", img?.alt || "");
     });
   });
 
