@@ -74,41 +74,55 @@ const { frontmatter } = Astro.props;
 
 <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true">
   <button id="lightbox-close" class="absolute top-4 right-5 text-white text-3xl leading-none" aria-label="Close">&times;</button>
-  <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-full rounded-lg object-contain" />
+  <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-5xl leading-none px-2 hover:opacity-70" aria-label="Previous">&#8249;</button>
+  <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[calc(100%-6rem)] rounded-lg object-contain" />
+  <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-5xl leading-none px-2 hover:opacity-70" aria-label="Next">&#8250;</button>
 </div>
 
 <script>
   const lightbox = document.getElementById("lightbox")!;
   const lightboxImg = document.getElementById("lightbox-img") as HTMLImageElement;
+  const prevBtn = document.getElementById("lightbox-prev")!;
+  const nextBtn = document.getElementById("lightbox-next")!;
 
-  function open(src: string, alt: string) {
-    lightboxImg.src = src;
-    lightboxImg.alt = alt;
+  const images: { src: string; alt: string }[] = [];
+  let current = 0;
+
+  document.querySelectorAll<HTMLButtonElement>("[data-lightbox]").forEach((btn, i) => {
+    const img = btn.querySelector("img");
+    images.push({ src: img?.src || "", alt: img?.alt || "" });
+    btn.addEventListener("click", () => { current = i; show(); openLightbox(); });
+  });
+
+  function show() {
+    lightboxImg.src = images[current].src;
+    lightboxImg.alt = images[current].alt;
+    prevBtn.style.visibility = images.length > 1 ? "visible" : "hidden";
+    nextBtn.style.visibility = images.length > 1 ? "visible" : "hidden";
+  }
+
+  function openLightbox() {
     lightbox.classList.remove("hidden");
     lightbox.classList.add("flex");
     document.body.style.overflow = "hidden";
   }
 
-  function close() {
+  function closeLightbox() {
     lightbox.classList.add("hidden");
     lightbox.classList.remove("flex");
     document.body.style.overflow = "";
   }
 
-  document.querySelectorAll<HTMLButtonElement>("[data-lightbox]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const img = btn.querySelector("img");
-      open(img?.src || "", img?.alt || "");
-    });
-  });
+  prevBtn.addEventListener("click", (e) => { e.stopPropagation(); current = (current - 1 + images.length) % images.length; show(); });
+  nextBtn.addEventListener("click", (e) => { e.stopPropagation(); current = (current + 1) % images.length; show(); });
+  document.getElementById("lightbox-close")!.addEventListener("click", closeLightbox);
 
-  document.getElementById("lightbox-close")!.addEventListener("click", close);
-
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) close();
-  });
+  lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
+    if (!lightbox.classList.contains("flex")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") { current = (current - 1 + images.length) % images.length; show(); }
+    if (e.key === "ArrowRight") { current = (current + 1) % images.length; show(); }
   });
 </script>
