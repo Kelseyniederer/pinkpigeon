@@ -39,6 +39,14 @@ collections:
         widget: "list"
         required: false
         default: []
+      - label: "Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        label_singular: "Photo"
+        fields:
+          - { label: "Photo", name: "url", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false, default: "" }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "pages"

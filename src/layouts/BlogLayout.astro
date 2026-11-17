@@ -46,6 +46,22 @@ const { frontmatter } = Astro.props;
       <div class="prose prose-sm dark:prose-invert max-w-md mt-12 mx-auto">
         <slot />
       </div>
+
+      {frontmatter.gallery && frontmatter.gallery.length > 0 && (
+        <div class="max-w-2xl mx-auto mt-12">
+          <div class="columns-2 sm:columns-3 gap-3 space-y-3">
+            {frontmatter.gallery.map((photo) => (
+              <Image
+                src={photo.url}
+                alt={photo.alt || ""}
+                width={800}
+                height={800}
+                class="w-full rounded-lg object-cover break-inside-avoid"
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   </section>
 </BaseLayout>

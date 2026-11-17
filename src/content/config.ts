@@ -12,6 +12,10 @@ const postsCollection = defineCollection({
       }),
       // Allow posts without tags (CMS users may leave it blank).
       tags: z.array(z.string()).optional().default([]),
+      gallery: z
+        .array(z.object({ url: image(), alt: z.string().optional().default("") }))
+        .optional()
+        .default([]),
     }),
 });
 
