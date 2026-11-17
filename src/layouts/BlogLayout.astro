@@ -51,13 +51,19 @@ const { frontmatter } = Astro.props;
         <div class="max-w-2xl mx-auto mt-12">
           <div class="columns-2 sm:columns-3 gap-3 space-y-3">
             {frontmatter.gallery.map((photo) => (
-              <Image
-                src={photo.url}
-                alt={photo.alt || ""}
-                width={800}
-                height={800}
-                class="w-full rounded-lg object-cover break-inside-avoid"
-              />
+              <button
+                class="w-full break-inside-avoid cursor-zoom-in"
+                data-lightbox={photo.url}
+                aria-label={photo.alt || "View photo"}
+              >
+                <Image
+                  src={photo.url}
+                  alt={photo.alt || ""}
+                  width={800}
+                  height={800}
+                  class="w-full rounded-lg object-cover"
+                />
+              </button>
             ))}
           </div>
         </div>
@@ -65,3 +71,44 @@ const { frontmatter } = Astro.props;
     </div>
   </section>
 </BaseLayout>
+
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true">
+  <button id="lightbox-close" class="absolute top-4 right-5 text-white text-3xl leading-none" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-full rounded-lg object-contain" />
+</div>
+
+<script>
+  const lightbox = document.getElementById("lightbox")!;
+  const lightboxImg = document.getElementById("lightbox-img") as HTMLImageElement;
+
+  function open(src: string, alt: string) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close() {
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll<HTMLButtonElement>("[data-lightbox]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const img = btn.querySelector("img");
+      open(btn.dataset.lightbox!, img?.alt || "");
+    });
+  });
+
+  document.getElementById("lightbox-close")!.addEventListener("click", close);
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+</script>
